@@ -97,6 +97,8 @@ TractChoropleth = R6Class("TractChoropleth",
 #' @param df A data.frame with a column named "region" and a column named "value".  
 #' @param state_name The name of the state. See ?state.regions for proper spelling and capitalization.
 #' @param title An optional title for the map.
+#' @param subtitle An optional subtitle for the map.
+#' @param caption An optional caption for the map.
 #' @param legend An optional name for the legend.  
 #' @param num_colors The number of colors to use on the map.  A value of 0 uses 
 #' a divergent scale (useful for visualizing negative and positive numbers), A 
@@ -113,11 +115,13 @@ TractChoropleth = R6Class("TractChoropleth",
 #' @export
 #' @importFrom Hmisc cut2
 #' @importFrom stringr str_extract_all
-#' @importFrom ggplot2 ggplot aes geom_polygon scale_fill_brewer ggtitle theme theme_grey element_blank geom_text
+#' @importFrom ggplot2 ggplot aes geom_polygon scale_fill_brewer ggtitle theme theme_grey element_blank geom_text labs
 #' @importFrom ggplot2 scale_fill_continuous scale_colour_brewer  
 tract_choropleth = function(df, 
                             state_name,
                             title         = "", 
+                            subtitle      = "",
+                            caption       = "",
                             legend        = "", 
                             num_colors    = 7, 
                             tract_zoom    = NULL,

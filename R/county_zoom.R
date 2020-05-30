@@ -37,7 +37,8 @@ CountyZoomChoropleth = R6Class("CountyZoomChoropleth",
         ggplot(self$choropleth.df, aes(long, lat, group = group)) +
           geom_path(color = "black", size = 1) + 
           self$theme_clean() + 
-          ggtitle(self$title)  
+          ggtitle(self$title, self$subtitle) + 
+          ggplot2::labs(caption = self$caption)
       }      
     }
    )

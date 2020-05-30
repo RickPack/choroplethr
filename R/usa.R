@@ -22,7 +22,9 @@ USAChoropleth = R6Class("USAChoropleth",
       self$prepare_map()
       
       if (private$zoom == "alaska" || private$zoom == "hawaii") {
-        choro = self$render_helper(self$choropleth.df, self$scale_name, self$theme_clean()) + ggtitle(self$title)
+        choro = self$render_helper(self$choropleth.df, self$scale_name, self$theme_clean()) + 
+          ggtitle(self$title, self$subtitle) +
+          labs(caption = caption)
         if (self$add_state_outline)
         {
           choro + self$render_state_outline(private$zoom)
@@ -30,7 +32,8 @@ USAChoropleth = R6Class("USAChoropleth",
       } else {
         # remove AK and HI from the "real" df
         continental.df = self$choropleth.df[!self$choropleth.df$state %in% c("alaska", "hawaii"), ]
-        continental.ggplot = self$render_helper(continental.df, self$scale_name, self$theme_clean()) + ggtitle(self$title)
+        continental.ggplot = self$render_helper(continental.df, self$scale_name, self$theme_clean()) + 
+          ggtitle(self$title, self$subtitle)
         if (self$add_state_outline)
         {
           continental.regions = subset(private$zoom, private$zoom!="alaska" & private$zoom!="hawaii")
@@ -66,7 +69,7 @@ USAChoropleth = R6Class("USAChoropleth",
         }
         
         ret +
-          ggtitle(self$title)
+          ggtitle(self$title, self$subtitle)
       }
     },
     

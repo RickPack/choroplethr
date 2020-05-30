@@ -59,6 +59,8 @@ CountyChoropleth = R6Class("CountyChoropleth",
 #' @param df A data.frame with a column named "region" and a column named "value".  Elements in 
 #' the "region" column must exactly match how regions are named in the "region" column in county.map.
 #' @param title An optional title for the map.  
+#' @param subtitle An optional subtitle for the map.
+#' @param caption An optional caption for the map.    
 #' @param legend An optional name for the legend.  
 #' @param num_colors The number of colors to use on the map.  A value of 0 uses 
 #' a divergent scale (useful for visualizing negative and positive numbers), A 
@@ -111,21 +113,25 @@ CountyChoropleth = R6Class("CountyChoropleth",
 #' @export
 #' @importFrom Hmisc cut2
 #' @importFrom stringr str_extract_all
-#' @importFrom ggplot2 ggplot aes geom_polygon scale_fill_brewer ggtitle theme theme_grey element_blank geom_text
-#' @importFrom ggplot2 scale_fill_continuous scale_colour_brewer
+#' @importFrom ggplot2 ggplot aes geom_polygon scale_fill_brewer ggtitle theme theme_grey
+#' @importFrom ggplot2 scale_fill_continuous scale_colour_brewer element_blank geom_text labs
 #' @importFrom grid unit
-county_choropleth = function(df, title="", legend="", num_colors=7, state_zoom=NULL, county_zoom=NULL, reference_map=FALSE)
+county_choropleth = function(df, title="", subtitle="", caption="",
+                             legend="", num_colors=7, 
+                             state_zoom=NULL, county_zoom=NULL, reference_map=FALSE)
 {
   # user can only zoom in by one of the zoom options
   if (!is.null(state_zoom) && !is.null(county_zoom))
   {
-    stop("You cannnot set state_zoom and county_zoom at the same time.")
+    stop("You cannot set state_zoom and county_zoom at the same time.")
   }
 
   if (!is.null(county_zoom))
   {
     c = CountyZoomChoropleth$new(df)
     c$title  = title
+    c$subtitle  = subtitle
+    c$caption = caption
     c$legend = legend
     c$set_num_colors(num_colors)
     c$set_zoom(county_zoom)
@@ -137,6 +143,8 @@ county_choropleth = function(df, title="", legend="", num_colors=7, state_zoom=N
   } else {
     c = CountyChoropleth$new(df)
     c$title  = title
+    c$subtitle  = subtitle
+    c$caption = caption
     c$legend = legend
     c$set_num_colors(num_colors)
     c$set_zoom(state_zoom)

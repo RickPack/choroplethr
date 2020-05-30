@@ -1,6 +1,7 @@
 #' The base Choropleth object.
 #' @importFrom R6 R6Class
-#' @importFrom ggplot2 scale_color_continuous coord_quickmap coord_map scale_x_continuous scale_y_continuous
+#' @importFrom ggplot2 scale_color_continuous coord_quickmap coord_map 
+#' @importFrom ggplot2 scale_x_continuous scale_y_continuous labs
 #' @importFrom ggmap get_map ggmap
 #' @importFrom RgoogleMaps MaxZoom
 #' @importFrom stringr str_extract_all
@@ -14,6 +15,8 @@ Choropleth = R6Class("Choropleth",
     choropleth.df  = NULL, # result of binding user data with our map data
             
     title          = "",    # title for map
+    subtitle       = "",    # subtitle for map
+    caption        = "",    # caption for map
     legend         = "",    # title for legend
     warn           = TRUE,  # warn user on clipped or missing values                      
     ggplot_scale   = NULL,  # override default scale.
@@ -81,7 +84,8 @@ Choropleth = R6Class("Choropleth",
         self$ggplot_polygon + 
         self$get_scale() +
         self$theme_clean() + 
-        ggtitle(self$title) + 
+        ggtitle(self$title, self$subtitle) + 
+        ggplot2::labs(caption = self$caption) +
         self$projection
     },
 
@@ -160,7 +164,8 @@ Choropleth = R6Class("Choropleth",
         self$get_x_scale() +
         self$get_y_scale() +
         self$theme_clean() + 
-        ggtitle(self$title) + 
+        ggtitle(self$title, self$subtitle) + 
+        ggplot2::labs(caption = self$caption) +
         coord_map()
     },
     

@@ -52,7 +52,9 @@ StateChoropleth = R6Class("StateChoropleth",
 #' 
 #' @param df A data.frame with a column named "region" and a column named "value".  Elements in 
 #' the "region" column must exactly match how regions are named in the "region" column in state.map.
-#' @param title An optional title for the map.  
+#' @param title An optional title for the map.
+#' @param subtitle An optional subtitle for the map.
+#' @param caption An optional caption for the map.        
 #' @param legend An optional name for the legend.
 #' @param num_colors The number of colors to use on the map.  A value of 0 uses 
 #' a divergent scale (useful for visualizing negative and positive numbers), A 
@@ -81,7 +83,9 @@ StateChoropleth = R6Class("StateChoropleth",
 #' data(df_pop_state)
 #' state_choropleth(df_pop_state, 
 #'                  title      = "US 2012 State Population Estimates", 
+#'                  subtitle   = "California, Oregon, Washington",
 #'                  legend     = "Population", 
+#'                  caption    = "Estimates from the 2012 5-year ACS",
 #'                  num_colors = 1,
 #'                  zoom       = c("california", "oregon", "washington"))
 #' 
@@ -106,12 +110,16 @@ StateChoropleth = R6Class("StateChoropleth",
 #' @importFrom Hmisc cut2
 #' @importFrom stringr str_extract_all
 #' @importFrom ggplot2 ggplot aes geom_polygon scale_fill_brewer ggtitle theme theme_grey element_blank geom_text
-#' @importFrom ggplot2 scale_fill_continuous scale_colour_brewer
+#' @importFrom ggplot2 scale_fill_continuous scale_colour_brewer labs
 #' @importFrom grid unit
-state_choropleth = function(df, title="", legend="", num_colors=7, zoom=NULL, reference_map = FALSE)
+state_choropleth = function(df, title="", subtitle="", caption="",
+                            legend="", num_colors=7, zoom=NULL, reference_map = FALSE)
 {
+  
   c = StateChoropleth$new(df)
   c$title  = title
+  c$subtitle  = subtitle
+  c$caption   = caption
   c$legend = legend
   c$set_num_colors(num_colors)
   c$set_zoom(zoom)

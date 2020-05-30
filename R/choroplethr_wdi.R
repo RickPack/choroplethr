@@ -7,6 +7,8 @@ if (base::getRversion() >= "2.15.1") {
 #' @param code The WDI code to use.
 #' @param year The year of data to use.
 #' @param title A title for the map.  If not specified, automatically generated to include WDI code and year.
+#' @param subtitle An optional subtitle for the map.
+#' @param caption An optional caption for the map.
 #' @param num_colors The number of colors to use on the map.  A value of 1 
 #' will use a continuous scale, and a value in [2, 9] will use that many colors. 
 #' @param zoom An optional list of countries to zoom in on. Must come from the "name" column in

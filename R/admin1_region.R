@@ -41,7 +41,8 @@ Admin1RegionChoropleth = R6Class("Admin1RegionChoropleth",
 #' the "region" column must exactly match how regions are named in the "region" column in ?admin1.regions
 #' in the choroplethrAdmin1 package
 #' @param title An optional title for the map.  
-#' @param legend An optional name for the legend.  
+#' @param legend An optional name for the legend.
+#' @param caption An optional caption.
 #' @param num_colors The number of colors on the map. A value of 1 
 #' will use a continuous scale. A value in [2, 9] will use that many colors. 
 #' @param zoom An optional vector of regions to zoom in on. Elements of this vector must exactly 
@@ -65,10 +66,12 @@ Admin1RegionChoropleth = R6Class("Admin1RegionChoropleth",
 #' @export
 #' @importFrom Hmisc cut2
 #' @importFrom stringr str_extract_all
-#' @importFrom ggplot2 ggplot aes geom_polygon scale_fill_brewer ggtitle theme theme_grey element_blank geom_text
+#' @importFrom ggplot2 ggplot aes geom_polygon scale_fill_brewer ggtitle theme theme_grey element_blank geom_text labs
 #' @importFrom ggplot2 scale_fill_continuous scale_colour_brewer ggplotGrob annotation_custom 
 #' @importFrom grid unit grobTree
-admin1_region_choropleth = function(df, title="", legend="", num_colors=7, zoom=NULL, reference_map=FALSE)
+admin1_region_choropleth = function(df, title="", legend="", num_colors=7,
+                                    caption="", zoom=NULL, 
+                                    reference_map=FALSE)
 {
   if (!requireNamespace("choroplethrAdmin1", quietly = TRUE)) {
     stop("Package choroplethrAdmin1 is needed for this function to work. Please install it.", call. = FALSE)
